@@ -1,0 +1,29 @@
+{
+  "name": "bag-o-loot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive --watch -R spec --colors"
+  },
+  "bin": {
+    "lootbag": "./js/lootbag.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arwask/Bag-O-Loot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arwask/Bag-O-Loot/issues"
+  },
+  "homepage": "https://github.com/Arwask/Bag-O-Loot#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^3.5.0",
+    "sqlite3": "^3.1.13"
+  }
+}
