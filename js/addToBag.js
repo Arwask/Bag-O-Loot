@@ -6,39 +6,23 @@
 
 'use strict';
 
-const sqlite = require('sqlite3').verbose();
+const sqlite3 = require('sqlite3').verbose();
 
-const db = new sqlite.Database('../bag-o-loot.sqlite', (err) => {
-    if(err)
-        console.log('Error occured', err);
-    console.log('connected');
-})
+const db = new sqlite3.Database('./bag-o-loot.sqlite', err => {
+  if (err) console.log('Error occured', err);
+});
 
-module.exports.addToy = () => {
+module.exports.addToy = ({ name, toy, goodKid, delivered }) => {
+  return new Promise((resolve, reject) => {
+    db.run(`INSERT INTO bag VALUES("${name}", "${toy}", "${goodKid}", "${delivered}")`, function(err) {
+      if (err) return reject(err);
+      resolve({ id: this.lastID });
+    });
+  });
+};
 
-}
+module.exports.getToy = () => {};
 
-module.exports.getAllChildren = () => {
-    
-    return new Promise( (resolve, reject) => {
+module.exports.getAllToysForAChild = () => {};
 
-                db.all("SELECT name FROM kids", (err, data) => {
-                    if(err)
-                        console.log('Error:', err);
-                    console.log('data?', data);
-                    resolve(data);
-                })
-    })
-}
-
-module.exports.getAllToysForAChild = () => {
-
-}
-
-module.exports.removeAChildsToy = () => {
-
-}
-
-module.exports.deliverToyToChild = () => {
-
-}
+module.exports.deliverToyToChild = () => {};
