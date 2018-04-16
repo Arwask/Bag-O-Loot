@@ -7,6 +7,7 @@ chai.use(chaiAsPromised);
 const { assert } = chai;
 const { createdb } = require('../js/createdb.js');
 const { addToy, getToy } = require('../js/addToBag.js');
+const { getKid } = require('../js/getAll.js');
 
 describe('bagLoot', () => {
   it('should be a function', () => {
@@ -33,22 +34,24 @@ describe('bagLoot', () => {
     });
 
     it('should add an item', () => {
-      let expected = { id: 1 };
+      let expected = { id: 9 };
       return addToy(obj).then(data => {
         assert.deepEqual(expected, data);
       });
     });
-  });
 
-  describe('getToy', () => {
-    it('should be a function', () => {
-      assert.isFunction(getToy);
-    });
-
-    it('should not return anything before adding a toy', () => {
-      let str = getToy();
-      console.log(str);
-      assert.isUndefined(str);
+    it('should add all the fields', () => {
+      let kidObj = {
+        name: 'Joan',
+        toy: 'Bicycle',
+        goodKid: 'true',
+        delivered: 'false'
+      };
+      return addToy(kidObj).then(() => {
+        return getKid(kidObj.name).then(data => {
+          assert.deepEqual(kidObj, data);
+        });
+      });
     });
   });
 });

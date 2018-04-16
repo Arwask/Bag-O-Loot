@@ -16,7 +16,7 @@ describe('GetAllChildren', () => {
 
   it('should return an array', () => {
     return getAllChildren().then(data => {
-      console.log('recieved data', data);
+      //you do return to handle the error properly otherwise it will throw unhandled rejection error! NO need for catch.
       assert.isArray(data);
     });
   });

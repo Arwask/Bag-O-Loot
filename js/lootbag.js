@@ -15,7 +15,7 @@ const [, , ...args] = process.argv;
 const { addToy } = require('./addToBag.js');
 const { setDelivered } = require('./deliverToy.js');
 const { removeAChildsToy } = require('./removeFromBag.js');
-const { setNotAGoodKid } = require('./notGoodKid.js');
+const { setNotAGoodKid, removeKid } = require('./notGoodKid.js');
 const { getAllChildren, getAllToysForAChild } = require('./getAll.js');
 
 const printAllOptions = () => {
@@ -24,9 +24,10 @@ const printAllOptions = () => {
     'lootbag remove [name] [toy] : to remove a toy',
     'lootbag ls : to list name of all the children',
     'lootbag ls [name] : list of toys for the child',
-    'lootbag rebuild : to rebuild an empty database',
-    'lootbag delivered : to set the delivery property on a child as delivered',
-    'lootbag naughty [name] : to set a kid as naughty and remove all the toys for that kid'
+    'lootbag delivered [name] : to set the delivery property on a child as delivered',
+    'lootbag naughty [name] : to set a kid as naughty',
+    'lootbag naughty [name] -r : to set a kid as naughty and remove all the toys for that kid',
+    'lootbag rebuild : to rebuild database with few data rows'
   ];
 };
 
@@ -86,11 +87,16 @@ switch (args[0]) {
     break;
 
   case 'naughty':
-    setNotAGoodKid(args[1]).then(data => {
-      console.log(data);
-      if (data == 0) console.log('No such kid. Try again!');
-      else console.log(`${data} ${data > 1 ? 'toys' : 'toy'} removed`);
-    });
+    if (args[1] && args[2]) {
+      removeKid(args[1]).then(data => {
+        if (data == 0) console.log('No such kid. Try again!');
+        else console.log(`${data} ${data > 1 ? 'toys' : 'toy'} removed`);
+      });
+    } else if (args[1]) {
+      setNotAGoodKid(args[1]).then(data => {
+        console.log(`${args[1]} set as a naughty kid.`);
+      });
+    } else console.log('Not a right command. Type lootbag help for more info. ');
     break;
 
   default:
