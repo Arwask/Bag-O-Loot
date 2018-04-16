@@ -16,7 +16,7 @@ describe("Removing a child's toy from the bag module", () => {
     });
 
     it('should return 1 affected/changed row', () => {
-      let obj = { name: 'Susan', toy: 'Doll' };
+      let obj = { name: 'Jim', toy: 'Bat' };
       return removeAChildsToy(obj).then(data => {
         assert.equal(1, data);
       });
